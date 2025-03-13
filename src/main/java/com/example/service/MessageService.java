@@ -30,6 +30,10 @@ public class MessageService {
         }
     }
 
+    public List<Message> getMessagesByUserID(int id){
+        return messageRepository.getMessagesByUserID(id);
+    }
+
     public List<Message> getAllMessages(){
         return messageRepository.getAllMessages();
     }

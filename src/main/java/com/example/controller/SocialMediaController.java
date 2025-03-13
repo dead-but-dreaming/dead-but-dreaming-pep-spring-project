@@ -21,6 +21,7 @@ import com.example.repository.MessageRepository;
 import com.example.repository.AccountRepository;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
+import java.util.List;
 
 
 /**
@@ -113,8 +114,8 @@ public class SocialMediaController {
     @GetMapping("/accounts/{accountId}/messages")
     public ResponseEntity getAllMessagesForUser(@PathVariable int accountId){
         System.out.println("");
-
-        return ResponseEntity.status(200).body("");
+        List<Message> messages = messageService.getMessagesByUserID(accountId);
+        return ResponseEntity.status(200).body(messages);
     }
 
 }
