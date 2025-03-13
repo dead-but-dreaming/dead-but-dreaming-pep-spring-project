@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 // import com.azul.crs.client.Response;
 import com.example.entity.Account;
 import com.example.entity.Message;
+import com.example.repository.MessageRepository;
 import com.example.repository.AccountRepository;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
@@ -30,18 +31,13 @@ import com.example.service.MessageService;
 @RestController
 public class SocialMediaController {
     private final AccountService accountService;
-    // private MessageService messageService;
-    // private final AccountRepository accountRepository;
+    private final MessageService messageService;
 
     @Autowired
-    SocialMediaController(AccountService accountService){
-        // this.accountRepository = new AccountRepository();
+    SocialMediaController(AccountService accountService, MessageService messageService){
         this.accountService = accountService;
+        this.messageService = messageService;
     }
-    // @Autowired
-    // SocialMediaController(){
-        
-    // }
 
     @PostMapping("/register")
     public ResponseEntity postRegister(@RequestBody Account newAccount){
@@ -93,8 +89,15 @@ public class SocialMediaController {
     }
 
     @GetMapping("/messages/{messageId}")
-    public Message getMessageByID(@RequestParam int id){
-        return new Message();
+    public ResponseEntity getMessageByID(@RequestParam int id){
+        Message message = messageService.getMessageById(id);
+
+        if (message != null) {
+            return ResponseEntity.status(200).body(message);
+        } else {
+            return ResponseEntity.status(401).body(null);
+        }
+
     }
 
     @DeleteMapping("/messages/{messageId}")
