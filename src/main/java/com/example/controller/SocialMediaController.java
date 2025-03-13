@@ -80,13 +80,13 @@ public class SocialMediaController {
     }
 
     @PostMapping("/messages")
-    public Message postMessages(){
+    public Message postMessage(){
         return new Message();
     }
 
     @GetMapping("/messages")
-    public Message getMessages(){
-        return new Message();
+    public ResponseEntity getAllMessages(){
+            return ResponseEntity.status(200).body(messageService.getAllMessages());
     }
 
     @GetMapping("/messages/{messageId}")
@@ -97,18 +97,24 @@ public class SocialMediaController {
     }
 
     @DeleteMapping("/messages/{messageId}")
-    public Message map1(@RequestParam int id){
-        return new Message();
+    public ResponseEntity deleteMessageByID(@PathVariable int messageId){
+        System.out.println("");
+
+        return ResponseEntity.status(200).body("");
     }
 
     @PatchMapping("/messages/{messageId}")
-    public Message map2(@RequestParam int id){
-        return new Message();
+    public ResponseEntity updateMessageByID(@PathVariable int messageId){
+        System.out.println("");
+
+        return ResponseEntity.status(200).body("");
     }
 
     @GetMapping("/accounts/{accountId}/messages")
-    public Message map3(@RequestParam int id){
-        return new Message();
+    public ResponseEntity getAllMessagesForUser(@PathVariable int accountId){
+        System.out.println("");
+
+        return ResponseEntity.status(200).body("");
     }
 
 }
