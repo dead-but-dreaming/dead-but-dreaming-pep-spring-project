@@ -56,4 +56,14 @@ public class AccountService {
             return null;
         }
     }
+
+    public Account authenticateUser(String username, String password){
+        Optional<Account> optionalAccount = accountRepository.findByUsernameAndPassword(username, password);
+
+        if(optionalAccount.isPresent() && password == optionalAccount.get().getPassword()){
+            return optionalAccount.get();
+        }else{
+            return null;
+        }
+    }
 }

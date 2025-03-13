@@ -58,10 +58,10 @@ public class SocialMediaController {
             // System.out.println("attempting to register new user");
             // System.out.println("newAccount: " + newAccount.getUsername());
 
-            Account freshAccount = accountService.createNewAccount(newAccount.getUsername(), newAccount.getPassword());
-            System.out.println("freshAccount after creation: " + freshAccount);
-            if (freshAccount != null){
-                return ResponseEntity.status(200).body(null);
+            newAccount = accountService.createNewAccount(newAccount.getUsername(), newAccount.getPassword());
+            
+            if (newAccount != null){
+                return ResponseEntity.status(200).body(newAccount);
             } else {
                 return ResponseEntity.status(409).body(null);
             }
@@ -70,8 +70,16 @@ public class SocialMediaController {
     }
 
     @PostMapping("/login")
-    public Account postLogin(){
-        return new Account();
+    public ResponseEntity postLogin(@RequestBody Account account){
+
+        account = accountService.authenticateUser(account.getUsername(), account.getPassword());
+
+        if (account != null) {
+            return ResponseEntity.status(200).body(account);
+        } else {
+            return ResponseEntity.status(401).body(null);
+        }
+
     }
 
     @PostMapping("/messages")
