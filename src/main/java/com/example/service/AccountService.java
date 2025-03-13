@@ -60,9 +60,17 @@ public class AccountService {
     public Account authenticateUser(String username, String password){
         Optional<Account> optionalAccount = accountRepository.findByUsernameAndPassword(username, password);
 
-        if(optionalAccount.isPresent() && password == optionalAccount.get().getPassword()){
-            return optionalAccount.get();
-        }else{
+        if (optionalAccount.isPresent()){
+            System.out.println(optionalAccount.get());
+
+            Account account = optionalAccount.get();
+
+            if (password.equals(account.getPassword())){
+                return account;
+            } else {
+                return null;
+            }
+        } else {
             return null;
         }
     }
