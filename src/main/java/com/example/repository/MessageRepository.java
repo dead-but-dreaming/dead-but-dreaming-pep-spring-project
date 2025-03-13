@@ -9,9 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 
-public interface MessageRepository extends JpaRepository<Message, Long> {
+public interface MessageRepository extends JpaRepository<Message, Integer> {
 
-    @Query("FROM Message WHERE id = :idVar")
-    Optional<Message> findById(@Param("idVar") String id);
+    @Query("FROM Message WHERE messageId = :idVar")
+    Optional<Message> findBymessageId(@Param("idVar") int messageId);
 
 }

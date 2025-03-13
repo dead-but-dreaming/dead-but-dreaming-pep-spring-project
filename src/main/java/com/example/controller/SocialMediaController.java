@@ -3,6 +3,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,15 +90,10 @@ public class SocialMediaController {
     }
 
     @GetMapping("/messages/{messageId}")
-    public ResponseEntity getMessageByID(@RequestParam int id){
-        Message message = messageService.getMessageById(id);
+    public ResponseEntity getMessageByID(@PathVariable int messageId){
+        Message message = messageService.getMessageById(messageId);
 
-        if (message != null) {
-            return ResponseEntity.status(200).body(message);
-        } else {
-            return ResponseEntity.status(401).body(null);
-        }
-
+        return ResponseEntity.status(200).body(message);
     }
 
     @DeleteMapping("/messages/{messageId}")

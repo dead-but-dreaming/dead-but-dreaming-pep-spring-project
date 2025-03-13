@@ -20,8 +20,8 @@ public class MessageService {
         return messageRepository.save(message);
     }
 
-    public Message getMessageById(long id){
-        Optional<Message> optionalMessage = messageRepository.findById(id);
+    public Message getMessageById(int id){
+        Optional<Message> optionalMessage = messageRepository.findBymessageId(id);
 
         if(optionalMessage.isPresent()){
             return optionalMessage.get();
