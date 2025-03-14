@@ -99,9 +99,14 @@ public class SocialMediaController {
 
     @DeleteMapping("/messages/{messageId}")
     public ResponseEntity deleteMessageByID(@PathVariable int messageId){
-        System.out.println("");
+        int numDeleted = messageService.deleteMessageByID(messageId);
+        String result = "";
+        
+        if (numDeleted > 0){
+            result += numDeleted;
+        }
 
-        return ResponseEntity.status(200).body("");
+        return ResponseEntity.status(200).body(result);
     }
 
     @PatchMapping("/messages/{messageId}")

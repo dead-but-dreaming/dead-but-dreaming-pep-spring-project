@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class MessageService {
     private final MessageRepository messageRepository;
     @Autowired
@@ -36,5 +39,9 @@ public class MessageService {
 
     public List<Message> getAllMessages(){
         return messageRepository.getAllMessages();
+    }
+
+    public int deleteMessageByID(int id){
+        return messageRepository.deleteMessageByID(id);
     }
 }
