@@ -33,6 +33,10 @@ public class MessageService {
         }
     }
 
+    public int updateMessage(String text, int id){
+        return messageRepository.updateMessage(text, id);
+    }
+
     public List<Message> getMessagesByUserID(int id){
         return messageRepository.getMessagesByUserID(id);
     }

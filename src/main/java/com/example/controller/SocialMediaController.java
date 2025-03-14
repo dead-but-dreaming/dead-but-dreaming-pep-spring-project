@@ -123,10 +123,23 @@ public class SocialMediaController {
     }
 
     @PatchMapping("/messages/{messageId}")
-    public ResponseEntity updateMessageByID(@PathVariable int messageId){
-        System.out.println("");
+    public ResponseEntity updateMessageByID(@RequestBody Message newMessage, @PathVariable int messageId){
+        // System.out.println("in controller");
+        newMessage.setMessageId(messageId);
 
-        return ResponseEntity.status(200).body("");
+        if (newMessage.getMessageText() == ""){
+            return ResponseEntity.status(400).body("");
+        } else if (newMessage.getMessageText().length() > 255){
+            return ResponseEntity.status(400).body("");
+        } else if (messageService.getMessageById(messageId) == null) {
+            return ResponseEntity.status(400).body("");
+        } else {
+            // System.out.println("message: " + newMessage);
+            int result = messageService.updateMessage(newMessage.getMessageText(), messageId);
+            
+            return ResponseEntity.status(200).body(result);
+        }
+
     }
 
     @GetMapping("/accounts/{accountId}/messages")
