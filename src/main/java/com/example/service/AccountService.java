@@ -20,8 +20,8 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account getAccountById(long id){
-        Optional<Account> optionalAccount = accountRepository.findById(id);
+    public Account checkAccountIdExists(int id){
+        Optional<Account> optionalAccount = accountRepository.findByAccountId(id);
 
         if(optionalAccount.isPresent()){
             return optionalAccount.get();

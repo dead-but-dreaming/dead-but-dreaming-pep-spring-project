@@ -81,13 +81,26 @@ public class SocialMediaController {
     }
 
     @PostMapping("/messages")
-    public Message postMessage(){
-        return new Message();
+    public ResponseEntity postMessage(@RequestBody Message newMessage){
+        System.out.println(accountService.checkAccountIdExists(newMessage.getPostedBy()));
+        if (newMessage.getMessageText() == ""){
+            return ResponseEntity.status(400).body("");
+        } else if (newMessage.getMessageText().length() > 255){
+            return ResponseEntity.status(400).body("");
+        } else if (accountService.checkAccountIdExists(newMessage.getPostedBy()) == null) {
+            return ResponseEntity.status(400).body("");
+        } else {
+            // System.out.println("message: " + newMessage);
+            newMessage = messageService.persistMessage(newMessage);
+            
+            return ResponseEntity.status(200).body(newMessage);
+        }
+
     }
 
     @GetMapping("/messages")
     public ResponseEntity getAllMessages(){
-            return ResponseEntity.status(200).body(messageService.getAllMessages());
+        return ResponseEntity.status(200).body(messageService.getAllMessages());
     }
 
     @GetMapping("/messages/{messageId}")
